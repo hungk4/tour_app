@@ -14,7 +14,7 @@ const sequelize = new Sequelize(
 sequelize.authenticate().then(() => {
    console.log('Kết nối database thành công !!!');
 }).catch((error) => {
-   console.error('Kết nối database thất bại !!!', error);
+   console.error('Kết nối database thất bại !!!');
 });
 
 export default sequelize;

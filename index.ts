@@ -3,6 +3,9 @@ import dotenv from "dotenv";
 dotenv.config();
 import sequelize from "./config/database";
 sequelize;
+
+import Tour from "./models/tour.model";
+
 const app: Express = express();
 const port: number | string  = process.env.PORT ||  3000;
 
@@ -15,8 +18,21 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 
-app.get("/tours", (req: Request, res: Response) => {
-  res.render("client/pages/tours/index");
+app.get("/tours", async (req: Request, res: Response) => {
+  // SELECT * FROM tours WHERE deleted = false AND status = "active";
+  const tours = await Tour.findAll({
+    where: {
+      deleted: false,
+      status: "active"
+    }, 
+      raw: true
+  });
+
+  
+  res.render("client/pages/tours/index", {
+    pageTitle: "Danh sách tour",
+    tours: tours
+  });
 });
 
 app.listen(port, () => {
