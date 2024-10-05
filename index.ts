@@ -13,27 +13,10 @@ app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug');
 
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("trang chu");
-});
+import { clientRoute } from "./routes/client/index.route";
+clientRoute(app);
 
 
-app.get("/tours", async (req: Request, res: Response) => {
-  // SELECT * FROM tours WHERE deleted = false AND status = "active";
-  const tours = await Tour.findAll({
-    where: {
-      deleted: false,
-      status: "active"
-    }, 
-      raw: true
-  });
-
-  
-  res.render("client/pages/tours/index", {
-    pageTitle: "Danh sách tour",
-    tours: tours
-  });
-});
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
