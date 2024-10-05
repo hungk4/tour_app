@@ -6,10 +6,16 @@ block main
       .row
         .col-6
           .inner-images
-            .inner-image
-              each image in tour.images
-                .inner-image
-                  img(src=image)
+            .swiper.tour-images
+              .swiper-wrapper
+                each image in tour.images
+                  .swiper-slide
+                    .inner-image
+                      img(src=image)
+              .swiper-pagination
+              .swiper-button-prev
+              .swiper-button-next
+              .swiper-scrollbar
         
         .col-6
           .inner-title #{tour.title}
