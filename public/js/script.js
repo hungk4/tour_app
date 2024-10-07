@@ -18,6 +18,17 @@ if(tourImages) {
 }
 // End tour-images
 
+// alert-add-cart-success
+const alertAddCartSucccess = () => {
+  const elementAlert = document.querySelector("[alert-add-cart-success]");
+  if(elementAlert) {
+    elementAlert.classList.remove("alert-hidden");
+    setTimeout(() => {
+      elementAlert.classList.add("alert-hidden");
+    }, 3000);
+  }
+}
+// end alert-add-cart-success
 
 // Gio hang
 const cart = localStorage.getItem("cart");
@@ -50,6 +61,8 @@ if(fromAddToCart){
       }
       
       localStorage.setItem("cart", JSON.stringify(cartJS));
+
+      alertAddCartSucccess();
     }
     
   })
