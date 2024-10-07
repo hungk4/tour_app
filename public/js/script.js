@@ -30,6 +30,14 @@ const alertAddCartSucccess = () => {
 }
 // end alert-add-cart-success
 
+const showMiniCart = () => {
+  const miniCart = document.querySelector("span[mini-cart]");
+  if(miniCart){
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    miniCart.innerHTML = cart.length;
+  }
+}
+showMiniCart();
 // Gio hang
 const cart = localStorage.getItem("cart");
 if(!cart){
@@ -63,6 +71,7 @@ if(fromAddToCart){
       localStorage.setItem("cart", JSON.stringify(cartJS));
 
       alertAddCartSucccess();
+      showMiniCart();
     }
     
   })
