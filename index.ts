@@ -4,7 +4,7 @@ dotenv.config();
 import sequelize from "./config/database";
 sequelize;
 
-import Tour from "./models/tour.model";
+import bodyParser from "body-parser";
 
 const app: Express = express();
 const port: number | string  = process.env.PORT ||  3000;
@@ -14,6 +14,8 @@ app.set('view engine', 'pug');
 
 
 app.use(express.static(`${__dirname}/public`))
+
+app.use(bodyParser.json());
 
 import { clientRoute } from "./routes/client/index.route";
 import { dirname } from "path";
