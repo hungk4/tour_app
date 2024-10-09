@@ -190,7 +190,7 @@ if(formOrder){
     const cart = JSON.parse(localStorage.getItem("cart"));
 
     var dataFinal = {
-      infoUser: {
+      info: {
         fullName: formOrder.fullName.value,
         phone: formOrder.phone.value,
         note: formOrder.note.value
