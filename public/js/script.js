@@ -181,3 +181,39 @@ if(tableCart){
 }
 // end vẽ tour vào giỏ hàng
 
+// Dat tour
+const formOrder = document.querySelector("[form-order]");
+if(formOrder){
+  formOrder.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const cart = JSON.parse(localStorage.getItem("cart"));
+
+    var dataFinal = {
+      infoUser: {
+        fullName: formOrder.fullName.value,
+        phone: formOrder.phone.value,
+        note: formOrder.note.value
+      },
+      cart
+    }
+
+    dataFinal = JSON.stringify(dataFinal);
+
+    fetch("/order", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: dataFinal
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+  });
+
+  
+}
+// End Dat tour
+
