@@ -30,6 +30,14 @@ const alertAddCartSucccess = () => {
 }
 // end alert-add-cart-success
 
+// tao cart
+const cart = localStorage.getItem("cart");
+if(!cart) {
+  localStorage.setItem("cart", JSON.stringify([]));
+}
+// End tao cart
+
+// Hiển thị số lượng sản phẩm vào mini cart
 const showMiniCart = () => {
   const miniCart = document.querySelector("span[mini-cart]");
   if(miniCart){
@@ -38,19 +46,18 @@ const showMiniCart = () => {
   }
 }
 showMiniCart();
-// Gio hang
-const cart = localStorage.getItem("cart");
-if(!cart){
-  localStorage.setItem("cart", JSON.stringify([]));
-}
-const fromAddToCart = document.querySelector("[form-add-to-cart]");
-if(fromAddToCart){
-  fromAddToCart.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const input = fromAddToCart.querySelector("input[name='quantity']");
+// Hết Hiển thị số lượng sản phẩm vào mini cart
 
-    const tourId = parseInt(fromAddToCart.getAttribute("tour-id"));
+// Gio hang
+const formAddToCart = document.querySelector("[form-add-to-cart]");
+if(formAddToCart){
+  formAddToCart.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const input = formAddToCart.querySelector("input[name='quantity']");
+
+    const tourId = parseInt(formAddToCart.getAttribute("tour-id"));
     const value = parseInt(input.value);
+    console.log(tourId + " " + value);
 
     if(tourId && value > 0){
       const cartJS = JSON.parse(localStorage.getItem("cart"));
@@ -101,6 +108,29 @@ const deleteItemInCart = () => {
 }
 // end xoa pham trong gio hang
 
+// cap nhat so luong san pham trong gio hang
+
+// End cap nhat so luong san pham trong gio hang
+const updateQuantity = () => {
+  const listinput = document.querySelectorAll("input[name='quantity']");
+  if(listinput.length > 0){
+    listinput.forEach((input) => {
+      input.addEventListener("change", () => {
+        const tourId = input.getAttribute("item-id");
+        const value = input.value;
+        const cart = JSON.parse(localStorage.getItem("cart"));
+     
+        const existTour = cart.find(item => item.tourId == tourId);
+        if(existTour && value > 0){
+          existTour.quantity = value;
+          localStorage.setItem("cart", JSON.stringify(cart));
+
+          window.location.reload();
+        }
+      })
+    })
+  }
+}
 // vẽ tour vào giỏ hàng
 const tableCart = document.querySelector("[table-cart]");
 
@@ -145,6 +175,7 @@ if(tableCart){
       totalPrice.innerHTML = data.total.toLocaleString();
 
       deleteItemInCart();
+      updateQuantity();
     })
 
 }
