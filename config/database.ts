@@ -1,4 +1,3 @@
-import exp from "constants";
 import { Sequelize } from "sequelize";
 
 const sequelize = new Sequelize(
