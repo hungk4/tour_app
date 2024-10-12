@@ -6,6 +6,10 @@ sequelize;
 
 import bodyParser from "body-parser";
 
+import { clientRoute } from "./routes/client/index.route";
+import { adminRoutes } from "./routes/admin/index.route";
+import { systemConfig } from "./config/system";
+
 const app: Express = express();
 const port: number | string  = process.env.PORT ||  3000;
 
@@ -17,9 +21,10 @@ app.use(express.static(`${__dirname}/public`))
 
 app.use(bodyParser.json());
 
-import { clientRoute } from "./routes/client/index.route";
-import { dirname } from "path";
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
+adminRoutes(app);
 clientRoute(app);
+
 
 
 
